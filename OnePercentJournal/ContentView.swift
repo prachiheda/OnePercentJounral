@@ -8,17 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = JournalViewModel()  // Shared ViewModel
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            JournalEntryView(viewModel: viewModel)
+                .tabItem {
+                    Label("New Entry", systemImage: "square.and.pencil")
+                }
+
+            JournalHistoryView(viewModel: viewModel)
+                .tabItem {
+                    Label("History", systemImage: "clock")
+                }
+
+            ReflectionView(viewModel: viewModel)
+                .tabItem {
+                    Label("Reflections", systemImage: "sparkles")
+                }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
 }
+
+

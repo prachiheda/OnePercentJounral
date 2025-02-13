@@ -11,6 +11,12 @@
 		AED50BB52D5DBFD500432CDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BB42D5DBFD500432CDC /* ContentView.swift */; };
 		AED50BB72D5DBFD800432CDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AED50BB62D5DBFD800432CDC /* Assets.xcassets */; };
 		AED50BBB2D5DBFD800432CDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AED50BBA2D5DBFD800432CDC /* Preview Assets.xcassets */; };
+		AED50BC32D5DC0F900432CDC /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BC22D5DC0F900432CDC /* JournalEntry.swift */; };
+		AED50BC72D5DC12100432CDC /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BC62D5DC12100432CDC /* JournalViewModel.swift */; };
+		AED50BC92D5DC13300432CDC /* JournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BC82D5DC13300432CDC /* JournalEntryView.swift */; };
+		AED50BCB2D5DC13F00432CDC /* JournalHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BCA2D5DC13F00432CDC /* JournalHistoryView.swift */; };
+		AED50BCD2D5DC15100432CDC /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BCC2D5DC15100432CDC /* ReflectionView.swift */; };
+		AED50BD02D5DC16F00432CDC /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BCF2D5DC16F00432CDC /* UserDefaultsHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +26,12 @@
 		AED50BB62D5DBFD800432CDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AED50BB82D5DBFD800432CDC /* OnePercentJournal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OnePercentJournal.entitlements; sourceTree = "<group>"; };
 		AED50BBA2D5DBFD800432CDC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AED50BC22D5DC0F900432CDC /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
+		AED50BC62D5DC12100432CDC /* JournalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = "<group>"; };
+		AED50BC82D5DC13300432CDC /* JournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryView.swift; sourceTree = "<group>"; };
+		AED50BCA2D5DC13F00432CDC /* JournalHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHistoryView.swift; sourceTree = "<group>"; };
+		AED50BCC2D5DC15100432CDC /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
+		AED50BCF2D5DC16F00432CDC /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,10 @@
 		AED50BB12D5DBFD500432CDC /* OnePercentJournal */ = {
 			isa = PBXGroup;
 			children = (
+				AED50BCE2D5DC15C00432CDC /* Utils */,
+				AED50BC52D5DC10E00432CDC /* Views */,
+				AED50BC42D5DC10200432CDC /* View Models */,
+				AED50BC12D5DC0E800432CDC /* Models */,
 				AED50BB22D5DBFD500432CDC /* OnePercentJournalApp.swift */,
 				AED50BB42D5DBFD500432CDC /* ContentView.swift */,
 				AED50BB62D5DBFD800432CDC /* Assets.xcassets */,
@@ -67,6 +83,40 @@
 				AED50BBA2D5DBFD800432CDC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AED50BC12D5DC0E800432CDC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AED50BC22D5DC0F900432CDC /* JournalEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AED50BC42D5DC10200432CDC /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				AED50BC62D5DC12100432CDC /* JournalViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		AED50BC52D5DC10E00432CDC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AED50BC82D5DC13300432CDC /* JournalEntryView.swift */,
+				AED50BCA2D5DC13F00432CDC /* JournalHistoryView.swift */,
+				AED50BCC2D5DC15100432CDC /* ReflectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AED50BCE2D5DC15C00432CDC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AED50BCF2D5DC16F00432CDC /* UserDefaultsHelper.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AED50BC72D5DC12100432CDC /* JournalViewModel.swift in Sources */,
+				AED50BCD2D5DC15100432CDC /* ReflectionView.swift in Sources */,
+				AED50BD02D5DC16F00432CDC /* UserDefaultsHelper.swift in Sources */,
+				AED50BC92D5DC13300432CDC /* JournalEntryView.swift in Sources */,
+				AED50BC32D5DC0F900432CDC /* JournalEntry.swift in Sources */,
+				AED50BCB2D5DC13F00432CDC /* JournalHistoryView.swift in Sources */,
 				AED50BB52D5DBFD500432CDC /* ContentView.swift in Sources */,
 				AED50BB32D5DBFD500432CDC /* OnePercentJournalApp.swift in Sources */,
 			);
