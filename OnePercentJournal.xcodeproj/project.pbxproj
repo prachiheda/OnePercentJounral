@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AE4737DD2D645436009C4B22 /* NotfiicationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737DC2D645436009C4B22 /* NotfiicationSettingsView.swift */; };
 		AE4737E52D645D62009C4B22 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737E42D645D62009C4B22 /* AppTheme.swift */; };
+		AE4737E72D646583009C4B22 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737E62D646583009C4B22 /* OnboardingView.swift */; };
 		AED50BB32D5DBFD500432CDC /* OnePercentJournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BB22D5DBFD500432CDC /* OnePercentJournalApp.swift */; };
 		AED50BB52D5DBFD500432CDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BB42D5DBFD500432CDC /* ContentView.swift */; };
 		AED50BB72D5DBFD800432CDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AED50BB62D5DBFD800432CDC /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		AE4737DC2D645436009C4B22 /* NotfiicationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotfiicationSettingsView.swift; sourceTree = "<group>"; };
 		AE4737E42D645D62009C4B22 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppTheme.swift; path = Theme/AppTheme.swift; sourceTree = "<group>"; };
+		AE4737E62D646583009C4B22 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AED50BAF2D5DBFD500432CDC /* OnePercentJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePercentJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED50BB22D5DBFD500432CDC /* OnePercentJournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePercentJournalApp.swift; sourceTree = "<group>"; };
 		AED50BB42D5DBFD500432CDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				AED50BC82D5DC13300432CDC /* JournalEntryView.swift */,
 				AED50BCA2D5DC13F00432CDC /* JournalHistoryView.swift */,
+				AE4737E62D646583009C4B22 /* OnboardingView.swift */,
 				AED50BCC2D5DC15100432CDC /* ReflectionView.swift */,
 				AE4737DC2D645436009C4B22 /* NotfiicationSettingsView.swift */,
 			);
@@ -205,6 +208,7 @@
 				AE4737DD2D645436009C4B22 /* NotfiicationSettingsView.swift in Sources */,
 				AED50BB32D5DBFD500432CDC /* OnePercentJournalApp.swift in Sources */,
 				AE4737E52D645D62009C4B22 /* AppTheme.swift in Sources */,
+				AE4737E72D646583009C4B22 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
