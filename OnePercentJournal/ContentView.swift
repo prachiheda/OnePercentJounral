@@ -9,13 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = JournalViewModel()  // Shared ViewModel
-
+    private var todayFormatted: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM d"
+    return formatter.string(from: Date())
+}
     var body: some View {
         TabView {
             JournalEntryView(viewModel: viewModel)
                 .tabItem {
-                    Label("New Entry", systemImage: "square.and.pencil")
-                }
+        Label(todayFormatted, systemImage: "square.and.pencil")
+    }
 
             JournalHistoryView(viewModel: viewModel)
                 .tabItem {
@@ -26,7 +30,14 @@ struct ContentView: View {
                 .tabItem {
                     Label("Reflections", systemImage: "sparkles")
                 }
+            
+            NotificationSettingsView()
+                .tabItem {
+                    Label("Notifications", systemImage: "bell.fill")
+                }
         }
+        .tint(AppTheme.primaryBlue)
+        .background(AppTheme.backgroundBlue)
     }
 }
 

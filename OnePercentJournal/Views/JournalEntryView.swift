@@ -77,12 +77,11 @@ struct JournalEntryView: View {
                             .padding(.horizontal)
                         
                         TextEditor(text: $text)
+                            .font(AppTheme.bodyFont)
+                            .padding()
+                            .background(AppTheme.backgroundBlue)
+                            .cornerRadius(10)
                             .frame(height: 200)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue.opacity(0.2), lineWidth: 1)
-                            )
-                            .padding(.horizontal)
                         
                         HStack {
                             Text("Optional Tags:")
@@ -125,6 +124,7 @@ struct JournalEntryView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
+                        .buttonStyle(ZenButtonStyle())
                         .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         .padding()
                     }

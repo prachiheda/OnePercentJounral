@@ -1,4 +1,3 @@
-//
 //  ReflectionView.swift
 //  OnePercentJournal
 //
@@ -16,6 +15,7 @@ struct ReflectionView: View {
                 Text("Your Growth Journey")
                     .font(.largeTitle)
                     .bold()
+                    .foregroundColor(AppTheme.textPrimary) // Use deep navy color
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     .padding(.top)
@@ -31,12 +31,13 @@ struct ReflectionView: View {
                     ReflectionSection(title: "1 Year Ago", entries: filterEntries(daysAgo: 365))
                 }
                 .padding(16)
-                .background(Color(.systemBackground))
+                .background(AppTheme.cardBackground) // Use a soft warm white for card background
                 .cornerRadius(12)
-                .shadow(radius: 2)
+                .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
                 .padding(.horizontal)
             }
         }
+        .background(AppTheme.backgroundBlue) // Apply cozy background
     }
     
     private func filterEntries(daysAgo: Int) -> [JournalEntry] {
@@ -111,4 +112,3 @@ struct ReflectionSection: View {
         }
     }
 }
-
