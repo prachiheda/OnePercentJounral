@@ -10,6 +10,7 @@
 		AE4737DD2D645436009C4B22 /* NotfiicationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737DC2D645436009C4B22 /* NotfiicationSettingsView.swift */; };
 		AE4737E52D645D62009C4B22 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737E42D645D62009C4B22 /* AppTheme.swift */; };
 		AE4737E72D646583009C4B22 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4737E62D646583009C4B22 /* OnboardingView.swift */; };
+		AE9D44952D65BE3800BEB034 /* Lato in Resources */ = {isa = PBXBuildFile; fileRef = AE9D44942D65BE3800BEB034 /* Lato */; };
 		AED50BB32D5DBFD500432CDC /* OnePercentJournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BB22D5DBFD500432CDC /* OnePercentJournalApp.swift */; };
 		AED50BB52D5DBFD500432CDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED50BB42D5DBFD500432CDC /* ContentView.swift */; };
 		AED50BB72D5DBFD800432CDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AED50BB62D5DBFD800432CDC /* Assets.xcassets */; };
@@ -26,6 +27,9 @@
 		AE4737DC2D645436009C4B22 /* NotfiicationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotfiicationSettingsView.swift; sourceTree = "<group>"; };
 		AE4737E42D645D62009C4B22 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppTheme.swift; path = Theme/AppTheme.swift; sourceTree = "<group>"; };
 		AE4737E62D646583009C4B22 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AE9D44942D65BE3800BEB034 /* Lato */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Lato; sourceTree = "<group>"; };
+		AE9D44982D65C0FA00BEB034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE9D449A2D65C23700BEB034 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		AED50BAF2D5DBFD500432CDC /* OnePercentJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePercentJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED50BB22D5DBFD500432CDC /* OnePercentJournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePercentJournalApp.swift; sourceTree = "<group>"; };
 		AED50BB42D5DBFD500432CDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		AED50BB12D5DBFD500432CDC /* OnePercentJournal */ = {
 			isa = PBXGroup;
 			children = (
+				AE9D449A2D65C23700BEB034 /* Lato-Bold.ttf */,
+				AE9D44942D65BE3800BEB034 /* Lato */,
 				AE4737E42D645D62009C4B22 /* AppTheme.swift */,
 				AED50BCE2D5DC15C00432CDC /* Utils */,
 				AED50BC52D5DC10E00432CDC /* Views */,
@@ -80,6 +86,7 @@
 				AED50BB62D5DBFD800432CDC /* Assets.xcassets */,
 				AED50BB82D5DBFD800432CDC /* OnePercentJournal.entitlements */,
 				AED50BB92D5DBFD800432CDC /* Preview Content */,
+				AE9D44982D65C0FA00BEB034 /* Info.plist */,
 			);
 			path = OnePercentJournal;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 			files = (
 				AED50BBB2D5DBFD800432CDC /* Preview Assets.xcassets in Resources */,
 				AED50BB72D5DBFD800432CDC /* Assets.xcassets in Resources */,
+				AE9D44952D65BE3800BEB034 /* Lato in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +350,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OnePercentJournal/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -380,6 +390,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OnePercentJournal/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

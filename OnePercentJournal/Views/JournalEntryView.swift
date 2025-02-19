@@ -1,10 +1,3 @@
-//
-//  JournalEntryView.swift
-//  OnePercentJournal
-//
-//  Created by Prachi Heda on 2/12/25.
-//
-
 import SwiftUI
 
 struct JournalEntryView: View {
@@ -12,121 +5,129 @@ struct JournalEntryView: View {
     @State private var selectedTags: [String] = []
     @ObservedObject var viewModel: JournalViewModel
     @State private var showingTagInfo = false
-    
-    let emojiTags: [(emoji: String, description: String)] = [
-        ("📚", "Career & Academics"),
-        ("🌿", "Health & Wellness"),
-        ("❤️", "Relationships"),
-        ("🎨", "Creativity"),
-        ("😊", "Personal Growth"),
-        ("💪", "Physical Fitness")
-    ]
-    
+
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         return formatter
     }
-    
+
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                Text(dateFormatter.string(from: Date()))
-                    .font(.largeTitle)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    .padding(.top)
-                
-                if viewModel.isTestingMode {
-                    HStack {
-                        Text("(Testing Mode)")
-                            .font(.caption)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color.purple.opacity(0.2))
-                            .foregroundColor(.purple)
-                            .cornerRadius(8)
-                        
-                        Button(action: { viewModel.addMockData()}) {
-                            Text("Clear All Entries")
-                                .font(.caption)
+        ZStack {
+            // Use the same background as your onboarding.
+            AppTheme.backgroundBlue.ignoresSafeArea()
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    // Date title styled similarly to your onboarding header.
+                    Text(dateFormatter.string(from: Date()))
+                        .font(.custom("HelveticaNeue-Bold", size: 40))
+                        .foregroundColor(AppTheme.textPrimary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.top)
+                    
+                    if viewModel.isTestingMode {
+                        HStack {
+                            Text("(Testing Mode)")
+                                .font(.custom("HelveticaNeue-Bold", size: 14))
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
-                                .background(Color.red.opacity(0.2))
-                                .foregroundColor(.red)
+                                .background(AppTheme.primaryBlue.opacity(0.2))
+                                .foregroundColor(AppTheme.primaryBlue)
                                 .cornerRadius(8)
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                
-                if !viewModel.canAddEntryToday() {
-                    Text("You've already journaled today! Come back tomorrow for your next reflection.")
-                        .font(.headline)
-                        .foregroundColor(.orange)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.orange.opacity(0.1))
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                } else {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("To become 1% better today, I...")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        TextEditor(text: $text)
-                            .font(AppTheme.bodyFont)
-                            .padding()
-                            .background(AppTheme.backgroundBlue)
-                            .cornerRadius(10)
-                            .frame(height: 200)
-                        
-                        HStack {
-                            Text("Optional Tags:")
-                                .font(.subheadline)
                             
-                            Button(action: { showingTagInfo.toggle() }) {
-                                Image(systemName: "info.circle")
+                            Button(action: { viewModel.addMockData() }) {
+                                Text("Clear All Entries")
+                                    .font(.custom("HelveticaNeue-Bold", size: 14))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(AppTheme.primaryBlue.opacity(0.2))
+                                    .foregroundColor(AppTheme.primaryBlue)
+                                    .cornerRadius(8)
                             }
                         }
                         .padding(.horizontal)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
+                    }
+                    
+                    if !viewModel.canAddEntryToday() {
+                        Text("You've already journaled today! Come back tomorrow for your next reflection.")
+                            .font(.custom("HelveticaNeue", size: 20))
+                            .foregroundColor(.orange)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.orange.opacity(0.1))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    } else {
+                        VStack(alignment: .leading, spacing: 16) {
+                            // Prompt styled to match your onboarding text.
+                            Text("To become 1% better today, I...")
+                                .font(.custom("HelveticaNeue", size: 30))
+                                .foregroundColor(AppTheme.textPrimary)
+                                .padding(.horizontal)
+                            
+                            // Journal entry editor with matching background and border.
+                            TextEditor(text: $text)
+                                .font(.custom("HelveticaNeue", size: 24))
+
+                                .background(AppTheme.primaryBlue.opacity(0.1))
+                                .cornerRadius(10)
+                                .frame(height: 200)
+        
+                                .padding(.horizontal)
+                            
+                            // Optional tags section.
                             HStack {
-                                ForEach(viewModel.customTags) { tag in
-                                    TagButton(
-                                        emoji: tag.emoji,
-                                        isSelected: selectedTags.contains(tag.emoji),
-                                        action: {
-                                            if selectedTags.contains(tag.emoji) {
-                                                selectedTags.removeAll { $0 == tag.emoji }
-                                            } else {
-                                                selectedTags.append(tag.emoji)
-                                            }
-                                        }
-                                    )
+                                Text("Optional Tags:")
+                                    .font(.custom("HelveticaNeue", size: 20))
+                                    .foregroundColor(AppTheme.textPrimary)
+                                
+                                Button(action: { showingTagInfo.toggle() }) {
+                                    Image(systemName: "info.circle")
+                                        .foregroundColor(AppTheme.primaryBlue)
                                 }
                             }
                             .padding(.horizontal)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(viewModel.customTags) { tag in
+                                        TagButton(
+                                            emoji: tag.emoji,
+                                            isSelected: selectedTags.contains(tag.emoji),
+                                            action: {
+                                                if selectedTags.contains(tag.emoji) {
+                                                    selectedTags.removeAll { $0 == tag.emoji }
+                                                } else {
+                                                    selectedTags.append(tag.emoji)
+                                                }
+                                            }
+                                        )
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            
+                            // Save Entry button using your custom ZenButtonStyle.
+                            Button(action: {
+                                viewModel.addEntry(text: text, tags: selectedTags)
+                                text = ""
+                                selectedTags = []
+                            }) {
+                                Text("Save Entry")
+                                    .font(.custom("HelveticaNeue-Bold", size: 24))
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(AppTheme.primaryBlue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+
+                            .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                            .padding(.horizontal)
+                            .padding(.bottom, 20)
                         }
-                        
-                        Button(action: {
-                            viewModel.addEntry(text: text, tags: selectedTags)
-                            text = ""
-                            selectedTags = []
-                        }) {
-                            Text("Save Entry")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                        .buttonStyle(ZenButtonStyle())
-                        .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                        .padding()
                     }
                 }
             }
@@ -141,17 +142,18 @@ struct TagButton: View {
     let emoji: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Text(emoji)
-                .font(.title)
+                .font(.custom("HelveticaNeue", size: 30))
                 .padding(10)
-                .background(isSelected ? Color.blue.opacity(0.3) : Color(.systemGray6))
+                .background(isSelected ? AppTheme.primaryBlue.opacity(0.4) : Color(.systemGray6))
                 .cornerRadius(10)
         }
     }
 }
+
 
 struct TagInfoView: View {
     @Environment(\.dismiss) var dismiss
@@ -159,47 +161,68 @@ struct TagInfoView: View {
     @State private var showingAddTag = false
     @State private var editingTag: JournalViewModel.CustomTag? = nil
     @State private var editingIndex: Int? = nil
-    
+
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                Text("Personalize your journal with custom tags! Swipe left to remove a tag, or tap the pencil to edit.")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal)
-                    .padding(.top, 4)
-                    .padding(.bottom, 20)
+            ZStack {
+                AppTheme.backgroundBlue.ignoresSafeArea()
                 
-                List {
-                    ForEach(viewModel.customTags.indices, id: \.self) { index in
-                        let tag = viewModel.customTags[index]
-                        HStack {
-                            Text(tag.emoji)
-                                .font(.title)
-                            Text(tag.description)
-                                .font(.body)
-                            Spacer()
-                            Button(action: {
-                                editingTag = tag
-                                editingIndex = index
-                            }) {
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.blue)
+                VStack(spacing: 0) {
+                    Text("Personalize your journal with custom tags! Swipe left to remove a tag, or tap the pencil to edit.")
+                        .font(.custom("HelveticaNeue", size: 14))
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                        .padding(.bottom, 20)
+                    
+                    List {
+                        ForEach(viewModel.customTags.indices, id: \.self) { index in
+                            let tag = viewModel.customTags[index]
+                            HStack {
+                                Text(tag.emoji)
+                                    .font(.custom("HelveticaNeue", size: 30))
+                                Text(tag.description)
+                                    .font(.custom("HelveticaNeue", size: 20))
+                                Spacer()
+                                Button(action: {
+                                    editingTag = tag
+                                    editingIndex = index
+                                }) {
+                                    Image(systemName: "pencil")
+                                        .foregroundColor(AppTheme.primaryBlue)
+                                }
                             }
+                            .listRowBackground(AppTheme.backgroundBlue)
+                        }
+                        .onDelete { indexSet in
+                            indexSet.forEach { viewModel.removeTag(at: $0) }
                         }
                     }
-                    .onDelete { indexSet in
-                        indexSet.forEach { viewModel.removeTag(at: $0) }
-                    }
+                    .listStyle(PlainListStyle())
+                    .scrollContentBackground(.hidden)
                 }
             }
+            // Use the standard navigation title:
             .navigationTitle("Custom Tags")
             .navigationBarItems(
-                leading: Button("Done") { dismiss() },
+                leading: Button("Done") { dismiss() }
+                    .font(.custom("HelveticaNeue", size: 20)),
                 trailing: Button(action: { showingAddTag = true }) {
                     Image(systemName: "plus")
                 }
             )
+            .onAppear {
+                // Configure the navigation bar appearance to update title font and color.
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor(AppTheme.backgroundBlue)
+                appearance.titleTextAttributes = [
+                    .foregroundColor: UIColor(AppTheme.textPrimary),
+                    .font: UIFont(name: "HelveticaNeue", size: 40)!
+                ]
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            }
             .sheet(isPresented: $showingAddTag) {
                 TagEditView(viewModel: viewModel)
             }
@@ -214,6 +237,7 @@ struct TagInfoView: View {
         }
     }
 }
+
 
 struct TagEditView: View {
     @Environment(\.dismiss) var dismiss

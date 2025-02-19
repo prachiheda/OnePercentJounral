@@ -7,11 +7,11 @@ struct AppTheme {
     static let cardBackground = Color.white // Card background color
     static let textPrimary = Color(red: 71/255, green: 85/255, blue: 105/255) // Soft dark blue-gray
     static let textSecondary = Color(red: 148/255, green: 163/255, blue: 184/255) // Lighter text color
-    
-    // Font styles
-    static let titleFont = Font.system(.title, design: .serif).weight(.light)
-    static let bodyFont = Font.system(.body, design: .serif).weight(.light)
-    static let captionFont = Font.system(.caption, design: .serif).weight(.light)
+
+    // Font styles with Helvetica Neue
+    static let titleFont = Font.custom("HelveticaNeue-Bold", size: 40)
+    static let bodyFont = Font.custom("HelveticaNeue", size: 20)
+    static let captionFont = Font.custom("HelveticaNeue-Italic", size: 16)
 }
 
 // Custom button style

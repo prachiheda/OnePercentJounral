@@ -14,6 +14,10 @@ struct JournalHistoryView: View {
     @State private var selectedTag: String?
     @State private var showingDatePicker = false
     @State private var selectedDate = Date()
+    @State private var selectedEntry: JournalEntry?
+    @State private var editedContent = ""
+    @State private var showingEditSheet = false
+    @AppStorage("userName") private var storedUserName = ""
     
     enum TimeFrame: String, CaseIterable {
         case all = "All Time"
@@ -68,7 +72,7 @@ struct JournalHistoryView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                Text("Journal History")
+                Text("\(storedUserName)'s Journal History")
                     .font(.largeTitle)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -116,7 +120,7 @@ struct JournalHistoryView: View {
                             Text("All Tags")
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
-                                .background(selectedTag == nil ? Color.blue : Color(.systemGray6))
+                                .background(selectedTag == nil ? Color.blue : Color(.systemGray4))
                                 .foregroundColor(selectedTag == nil ? .white : .primary)
                                 .cornerRadius(8)
                         }
@@ -138,24 +142,24 @@ struct JournalHistoryView: View {
                 List(filteredEntries) { entry in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(entry.text)
-                            .font(.body)
+                            .font(.system(.body, design: .serif))
+                            .foregroundColor(AppTheme.textPrimary)
                         
                         HStack {
                             Text(entry.date, style: .date)
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                                .font(.system(.caption, design: .serif))
+                                .foregroundColor(AppTheme.textSecondary)
                             
                             Spacer()
                             
-                            // Tags
                             if !entry.tags.isEmpty {
                                 HStack(spacing: 4) {
                                     ForEach(entry.tags, id: \.self) { tag in
                                         Text(tag)
-                                            .font(.caption)
+                                            .font(.system(.caption, design: .serif))
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
-                                            .background(Color(.systemGray6))
+                                            .background(AppTheme.backgroundBlue)
                                             .cornerRadius(8)
                                     }
                                 }
@@ -163,10 +167,54 @@ struct JournalHistoryView: View {
                         }
                     }
                     .padding(.vertical, 4)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedEntry = entry
+                        editedContent = entry.text
+                        showingEditSheet = true
+                    }
                 }
                 .listStyle(PlainListStyle())
             }
             .navigationBarHidden(true)
+            .sheet(isPresented: $showingEditSheet) {
+                NavigationView {
+                    VStack {
+                        TextEditor(text: $editedContent)
+                            .font(.system(size: 24, design: .serif))
+                            .foregroundColor(AppTheme.textPrimary)
+                            .padding()
+                            .background(AppTheme.backgroundBlue.opacity(0.3))
+                            .cornerRadius(10)
+                            .padding()
+                        
+                        Spacer()
+                    }
+                    .background(AppTheme.backgroundBlue.opacity(0.5).ignoresSafeArea())
+                    .navigationTitle("Edit Entry")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Cancel") {
+                                showingEditSheet = false
+                            }
+                            .foregroundColor(AppTheme.primaryBlue)
+                            .font(.system(size: 17, design: .serif))
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Save") {
+                                if let entry = selectedEntry {
+                                    viewModel.updateEntry(entry, with: editedContent)
+                                }
+                                showingEditSheet = false
+                            }
+                            .foregroundColor(AppTheme.primaryBlue)
+                            .font(.system(size: 17, design: .serif))
+                        }
+                    }
+                }
+            }
             .sheet(isPresented: $showingDatePicker) {
                 NavigationView {
                     DatePicker(

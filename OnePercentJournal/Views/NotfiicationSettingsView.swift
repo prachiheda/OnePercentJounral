@@ -48,6 +48,7 @@ struct NotificationSettingsView: View {
             .scrollContentBackground(.hidden) 
             .background(Color(.systemBackground))
             .onAppear {
+                checkNotificationStatus()
                 // Request notification permission when view appears
                 if notificationsEnabled {
                     requestNotificationPermission()
@@ -71,34 +72,66 @@ struct NotificationSettingsView: View {
     }
     
     private func scheduleNotification() {
-        // Cancel existing notifications before scheduling new one
-        cancelNotifications()
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Time to Journal"
-        content.body = "Take a moment to reflect on your day"
-        content.sound = .default
-        
-        // Create date components for the notification
-        var dateComponents = DateComponents()
-        dateComponents.hour = notificationHour
-        dateComponents.minute = notificationMinute
-        
-        // Create the trigger
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        // Create the request
-        let request = UNNotificationRequest(identifier: "dailyJournal", content: content, trigger: trigger)
-        
-        // Schedule the notification
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error)")
+        // Check notification authorization status first
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings.authorizationStatus.rawValue)")
+            guard settings.authorizationStatus == .authorized else {
+                print("Notifications not authorized")
+                return
+            }
+            
+            // Cancel existing notifications before scheduling a new one
+            self.cancelNotifications()
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Time to Journal"
+            content.body = "Take a moment to reflect on your day"
+            content.sound = UNNotificationSound.default
+            content.badge = 1
+            
+            // For a DAILY repeating notification, only specify hour & minute
+            var components = DateComponents()
+            components.hour = self.notificationHour
+            components.minute = self.notificationMinute
+            // No need to set .year, .month, .day, or handle "if nextTriggerDate <= now"
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+            
+            let request = UNNotificationRequest(identifier: "dailyJournal", content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error)")
+                } else {
+                    print("Notification successfully scheduled")
+                    // Verify pending notifications
+                    UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                        print("Number of pending notifications: \(requests.count)")
+                        for request in requests {
+                            if let trigger = request.trigger as? UNCalendarNotificationTrigger {
+                                print("Pending notification trigger date: \(trigger.nextTriggerDate() ?? Date())")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
+
     
     private func cancelNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
+    // Add this function to check notification status when needed
+    private func checkNotificationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                print("Authorization Status: \(settings.authorizationStatus.rawValue)")
+                print("Alert Setting: \(settings.alertSetting.rawValue)")
+                print("Sound Setting: \(settings.soundSetting.rawValue)")
+                print("Badge Setting: \(settings.badgeSetting.rawValue)")
+            }
+        }
     }
 }

@@ -137,5 +137,12 @@ class JournalViewModel: ObservableObject {
             UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
         }
     }
+    
+    func updateEntry(_ entry: JournalEntry, with newContent: String) {
+        if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+            entries[index].text = newContent
+            saveEntries()
+        }
+    }
 }
 
