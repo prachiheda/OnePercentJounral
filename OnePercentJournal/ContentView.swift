@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = JournalViewModel()
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+
     
     private var todayFormatted: String {
     let formatter = DateFormatter()

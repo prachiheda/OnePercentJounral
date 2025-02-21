@@ -1,5 +1,11 @@
 import SwiftUI
 
+
+
+
+
+
+
 struct MovingCircle: View {
     let size: CGFloat
     let offset: CGFloat
@@ -8,7 +14,7 @@ struct MovingCircle: View {
     
     var body: some View {
         Circle()
-            .fill(AppTheme.primaryBlue.opacity(0.1))
+            .fill(AppTheme.primaryBlue.opacity(0.15))
             .frame(width: size, height: size)
             .offset(y: move ? offset : -offset)
             .animation(
@@ -19,11 +25,14 @@ struct MovingCircle: View {
             .onAppear {
                 move = true
             }
+            .ignoresSafeArea()
     }
 }
 
 struct WaveView: View {
     @State private var phase = 0.0
+    
+
     let amplitude: Double = 20
     
     var body: some View {
@@ -46,7 +55,7 @@ struct WaveView: View {
                     }
                 }
                 
-                context.stroke(path, with: .color(AppTheme.primaryBlue.opacity(0.3)), lineWidth: 2)
+                context.stroke(path, with: .color(AppTheme.primaryBlue.opacity(0.3)), lineWidth: 3)
             }
         }
     }
@@ -61,6 +70,8 @@ struct OnboardingView: View {
     @State private var isAnimating = false
     @State private var userName = ""
     @State private var showError = false
+    @State private var pulse = false
+    @State private var showSparkles = false
     @AppStorage("userName") private var storedUserName = ""
     
     let examples = [
@@ -77,27 +88,31 @@ struct OnboardingView: View {
             ZStack {
                 // Adjusted background animations for better framing
                 MovingCircle(size: 250, offset: 100, duration: 4)
-                    .offset(x: -120, y: -250)
+                    .offset(x: -120, y: -50)
+                    .ignoresSafeArea()
                 MovingCircle(size: 200, offset: 80, duration: 5)
                     .offset(x: 150, y: 200)
-                MovingCircle(size: 150, offset: 60, duration: 3)
+                    .ignoresSafeArea()
+                MovingCircle(size: 150, offset: 70, duration: 3)
                     .offset(x: 180, y: -180)
+                    .ignoresSafeArea()
                 
                 VStack {
                     Text("Small Steps,\nBig Changes")
-                        .font(.system(size: 40, weight: .bold, design: .serif))
+                        .font(.custom("HelveticaNeue-Bold", size: 40))
+                        .foregroundColor(AppTheme.textPrimaryDark)
                         .multilineTextAlignment(.center)
                         .padding(.top, 140)
                         .padding(.bottom, 50)
                     
                     VStack(spacing: 40) {
                         Text("Your daily choices\nshape who you become.")
-                            .font(.system(size: 30, design: .serif))
+                            .font(.custom("HelveticaNeue", size: 30))
                             .foregroundColor(AppTheme.textPrimary)
                             .multilineTextAlignment(.center)
                         
-                        Text("Improve by 1% each day,\nand you'll be 37x better\nin a year.")
-                            .font(.system(size: 30, design: .serif))
+                        Text("Improve by 1% each day, and you'll be 37x better in a year.")
+                            .font(.custom("HelveticaNeue", size: 30))
                             .foregroundColor(AppTheme.textPrimary)
                             .multilineTextAlignment(.center)
                     }
@@ -106,18 +121,21 @@ struct OnboardingView: View {
                 }
                 .padding(.horizontal, 30)
             }
+
             .tag(0)
+            
             
             // Updated Second Page
             VStack {
                 Text("To become 1% better today, I...")
-                    .font(.system(size: 40, weight: .bold, design: .serif))
+                    .font(.custom("HelveticaNeue-Bold", size: 40))
+                    .foregroundColor(AppTheme.textPrimaryDark)
                     .multilineTextAlignment(.center)
                     .padding(.top, 140)
                     .padding(.bottom, 50)
                 
                 Text(typingText)
-                    .font(.system(size: 30, design: .serif))
+                    .font(.custom("HelveticaNeue", size: 30))
                     .foregroundColor(AppTheme.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(3)
@@ -126,8 +144,12 @@ struct OnboardingView: View {
                     .padding()
                 
                 WaveView()
-                    .frame(height: 100)
-                    .padding(.top, 50)
+                    .frame(height: 80)
+                WaveView()
+                    .frame(height: 80)
+
+                WaveView()
+                    .frame(height: 80)
                 
                 Spacer()
             }
@@ -144,70 +166,102 @@ struct OnboardingView: View {
             }
             
             // Updated Third Page
-            VStack {
-                Text("Ready to Begin?")
-                    .font(.system(size: 40, weight: .bold, design: .serif))
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 140)
-                    .padding(.bottom, 50)
-                
-                
-                VStack(spacing: 40){
-                    Text("Start your journey of daily reflection\nand personal growth")
-                        .font(.system(size: 30, design: .serif))
-                        .foregroundColor(AppTheme.textPrimary)
-                        .multilineTextAlignment(.center)
+            ZStack {
+
+
                     
-                    VStack(spacing: 5) {
-                        TextField("Enter your name", text: $userName)
-                            .font(.system(size: 24, design: .serif))
+                VStack {
+                    Text("Ready to Begin?")
+                        .font(.custom("HelveticaNeue-Bold", size: 40))
+                        .foregroundColor(AppTheme.textPrimaryDark)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 140)
+                        .padding(.bottom, 50)
+                    
+                    
+                    VStack(spacing: 40){
+                        Text("Start your journey of daily reflection and personal growth")
+                            .font(.custom("HelveticaNeue", size: 30))
                             .foregroundColor(AppTheme.textPrimary)
                             .multilineTextAlignment(.center)
-                            .textFieldStyle(.plain)
-                            .padding(.vertical, 10)
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1)
-                                    .foregroundColor(showError ? Color.red : AppTheme.primaryBlue)
-                                    .offset(y: 20)
-                            )
-                            .onChange(of: userName) {
-                                showError = false
-                            }
                         
-                        if showError {
-                            Text("Please enter your name to continue")
-                                .font(.system(size: 16, design: .serif))
-                                .foregroundColor(.red)
-                                .transition(.opacity)
+                        VStack(spacing: 5) {
+                            TextField("Enter your name", text: $userName)
+                                .font(.custom("HelveticaNeue", size: 24))
+                                .foregroundColor(AppTheme.textPrimary)
+                                .multilineTextAlignment(.center)
+                                .textFieldStyle(.plain)
+                                .padding(.vertical, 10)
+                                .overlay(
+                                    Rectangle()
+                                        .frame(height: 1)
+                                        .foregroundColor(showError ? Color.red : AppTheme.primaryBlue)
+                                        .offset(y: 20)
+                                )
+                                .onChange(of: userName) {
+                                    showError = false
+                                }
+                            
+                            if showError {
+                                Text("Please enter your name to continue")
+                                    .font(.system(size: 16, design: .serif))
+                                    .foregroundColor(.red)
+                                    .transition(.opacity)
+                            }
                         }
                     }
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    print("Button tapped") // Debug print
-                    let trimmedName = userName.trimmingCharacters(in: .whitespacesAndNewlines)
-                    if trimmedName.isEmpty {
-                        withAnimation {
-                            showError = true
+                    
+                    Spacer()
+                    Spacer()
+
+                    
+                    Button(action: {
+                        print("Button tapped") // Debug print
+                        let trimmedName = userName.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if trimmedName.isEmpty {
+                            withAnimation {
+                                showError = true
+                            }
+                        } else {
+                            print("Name is valid: \(trimmedName)") // Debug print
+                            storedUserName = trimmedName
+                            UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+                            hasCompletedOnboarding = true
+                            withAnimation(.easeInOut(duration: 1)) {
+                                    showSparkles = true
+                                }
+                            print("Onboarding completed") // Debug print
                         }
-                    } else {
-                        print("Name is valid: \(trimmedName)") // Debug print
-                        storedUserName = trimmedName
-                        UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
-                        hasCompletedOnboarding = true
-                        print("Onboarding completed") // Debug print
+                    }) {
+                        Text("Get Started")
+                                .font(.custom("HelveticaNeue", size: 24))
+                                .foregroundColor(AppTheme.textPrimary)
+                                .padding()
+                                .background(AppTheme.primaryBlue.opacity(0.8))
+                                .cornerRadius(12)
+                                .scaleEffect(pulse ? 1.05 : 1.0)
+                                .opacity(pulse ? 1.0 : 0.8)
+                                .onAppear {
+                                    withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                                        pulse.toggle()
+                                    }
+                                }
                     }
-                }) {
-                    Text("Get Started")
+                    
+                    
+                    .padding(.bottom, 100)
+                    if showSparkles {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: 80))
+                            .foregroundColor(AppTheme.primaryBlue)
+                            .scaleEffect(showSparkles ? 1.5 : 0.5)
+                            .opacity(showSparkles ? 1 : 0)
+                            .transition(.scale)
+                    }
                 }
-                .buttonStyle(ZenButtonStyle())
-                .padding(.bottom, 50)
-            }
-            .padding(.horizontal, 30)
+                .padding(.horizontal, 30)
             .tag(2)
+            }
         }
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .always))

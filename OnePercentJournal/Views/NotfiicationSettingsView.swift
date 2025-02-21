@@ -9,14 +9,17 @@ struct NotificationSettingsView: View {
     var body: some View {
         VStack(spacing: 20) {
             Text("Notification Settings")
-                .font(.largeTitle)
-                .bold()
+                .font(.custom("HelveticaNeue-Bold", size: 35))
+                .foregroundColor(AppTheme.textPrimaryDark)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 .padding(.top)
             Form {
                 Section {
                     Toggle("Enable Daily Reminder", isOn: $notificationsEnabled)
+                        .font(.custom("HelveticaNeue", size: 18))
+                        .foregroundColor(AppTheme.textPrimaryDark)
+                        .tint(AppTheme.primaryBlue)
                         .onChange(of: notificationsEnabled) { oldValue, newValue in
                             if newValue {
                                 requestNotificationPermission()
@@ -41,7 +44,11 @@ struct NotificationSettingsView: View {
                                     }
                                    ),
                                    displayedComponents: .hourAndMinute
+                                   
                         )
+                        .font(.custom("HelveticaNeue", size: 18))
+                        .foregroundColor(AppTheme.textPrimaryDark)
+                        .accentColor(AppTheme.primaryBlue)
                     }
                 }
             }
@@ -135,3 +142,11 @@ struct NotificationSettingsView: View {
         }
     }
 }
+
+struct NotificationSettings_Previews: PreviewProvider {
+    static var previews: some View {
+        // 3) Return the view for previews.
+        return NotificationSettingsView()
+    }
+}
+

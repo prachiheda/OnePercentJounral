@@ -73,11 +73,12 @@ struct JournalHistoryView: View {
         NavigationView {
             VStack(spacing: 0) {
                 Text("\(storedUserName)'s Journal History")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.custom("HelveticaNeue-Bold", size: 35))
+                    .foregroundColor(AppTheme.textPrimaryDark)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     .padding(.top)
+                    .padding(.bottom)
                 
                 // Search Bar
                 HStack {
@@ -104,7 +105,7 @@ struct JournalHistoryView: View {
                                 Text(timeFrame.rawValue)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(selectedTimeFrame == timeFrame ? Color.blue : Color(.systemGray6))
+                                    .background(selectedTimeFrame == timeFrame ? AppTheme.primaryBlue : AppTheme.primaryBlue.opacity(0.1))
                                     .foregroundColor(selectedTimeFrame == timeFrame ? .white : .primary)
                                     .cornerRadius(8)
                             }
@@ -113,6 +114,7 @@ struct JournalHistoryView: View {
                     .padding()
                 }
                 
+                
                 // Tag filters
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -120,8 +122,16 @@ struct JournalHistoryView: View {
                             Text("All Tags")
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
-                                .background(selectedTag == nil ? Color.blue : Color(.systemGray4))
-                                .foregroundColor(selectedTag == nil ? .white : .primary)
+                                .background(
+                                                                        selectedTag == nil
+                                                                        ? AppTheme.primaryBlue
+                                                                        : AppTheme.primaryBlue.opacity(0.1)
+                                                                    )
+                                                                    .foregroundColor(
+                                                                        selectedTag == nil
+                                                                        ? .white
+                                                                        : .primary
+                                                                    )
                                 .cornerRadius(8)
                         }
                         
@@ -130,8 +140,8 @@ struct JournalHistoryView: View {
                                 Text(tag)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(selectedTag == tag ? Color.blue : Color(.systemGray6))
-                                    .foregroundColor(selectedTag == tag ? .white : .primary)
+                                    .background(selectedTag == tag ? AppTheme.primaryBlue : AppTheme.primaryBlue.opacity(0.1))
+                                    .foregroundColor( selectedTag == tag ? .white :AppTheme.primaryBlue)
                                     .cornerRadius(8)
                             }
                         }
@@ -142,12 +152,12 @@ struct JournalHistoryView: View {
                 List(filteredEntries) { entry in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(entry.text)
-                            .font(.system(.body, design: .serif))
+                            .font(.custom("HelveticaNeue", size: 20))
                             .foregroundColor(AppTheme.textPrimary)
                         
                         HStack {
                             Text(entry.date, style: .date)
-                                .font(.system(.caption, design: .serif))
+                                .font(.custom("HelveticaNeue", size: 12))
                                 .foregroundColor(AppTheme.textSecondary)
                             
                             Spacer()
@@ -156,7 +166,7 @@ struct JournalHistoryView: View {
                                 HStack(spacing: 4) {
                                     ForEach(entry.tags, id: \.self) { tag in
                                         Text(tag)
-                                            .font(.system(.caption, design: .serif))
+                                            .font(.custom("HelveticaNeue", size: 12))
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
                                             .background(AppTheme.backgroundBlue)
@@ -181,11 +191,11 @@ struct JournalHistoryView: View {
                 NavigationView {
                     VStack {
                         TextEditor(text: $editedContent)
-                            .font(.system(size: 24, design: .serif))
+                            .font(.custom("HelveticaNeue", size: 24))
                             .foregroundColor(AppTheme.textPrimary)
                             .padding()
                             .background(AppTheme.backgroundBlue.opacity(0.3))
-                            .cornerRadius(10)
+                            .cornerRadius(15)
                             .padding()
                         
                         Spacer()
@@ -198,8 +208,9 @@ struct JournalHistoryView: View {
                             Button("Cancel") {
                                 showingEditSheet = false
                             }
-                            .foregroundColor(AppTheme.primaryBlue)
-                            .font(.system(size: 17, design: .serif))
+                            .foregroundColor(AppTheme.textPrimary)
+                            .foregroundColor(AppTheme.textPrimary)
+                            .font(.custom("HelveticaNeue", size: 17))
                         }
                         
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -209,8 +220,8 @@ struct JournalHistoryView: View {
                                 }
                                 showingEditSheet = false
                             }
-                            .foregroundColor(AppTheme.primaryBlue)
-                            .font(.system(size: 17, design: .serif))
+                            .foregroundColor(AppTheme.textPrimary)
+                            .font(.custom("HelveticaNeue", size: 17))
                         }
                     }
                 }
@@ -234,3 +245,12 @@ struct JournalHistoryView: View {
     }
 }
 
+struct JournalHistoryView_Previews: PreviewProvider {
+    static var previews: some View {
+        // 1) Create a sample JournalViewModel.
+        let sampleViewModel = JournalViewModel()
+        
+        // 3) Return the view for previews.
+        return JournalHistoryView(viewModel: sampleViewModel)
+    }
+}

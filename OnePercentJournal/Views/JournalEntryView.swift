@@ -22,7 +22,7 @@ struct JournalEntryView: View {
                     // Date title styled similarly to your onboarding header.
                     Text(dateFormatter.string(from: Date()))
                         .font(.custom("HelveticaNeue-Bold", size: 40))
-                        .foregroundColor(AppTheme.textPrimary)
+                        .foregroundColor(AppTheme.textPrimaryDark)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                         .padding(.top)

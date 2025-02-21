@@ -13,9 +13,9 @@ struct ReflectionView: View {
         ScrollView {
             VStack(spacing: 20) {
                 Text("Your Growth Journey")
-                    .font(.largeTitle)
+                    .font(.custom("HelveticaNeue-Bold", size: 35))
                     .bold()
-                    .foregroundColor(AppTheme.textPrimary) // Use deep navy color
+                    .foregroundColor(AppTheme.textPrimaryDark) // Use deep navy color
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     .padding(.top)
@@ -23,12 +23,15 @@ struct ReflectionView: View {
                 // Time-based Reflections
                 VStack(spacing: 12) {
                     ReflectionSection(title: "1 Week Ago", entries: filterEntries(daysAgo: 7))
+                        .foregroundColor(AppTheme.textPrimaryDark)
                     Divider()
                         .padding(.vertical, 8)
                     ReflectionSection(title: "1 Month Ago", entries: filterEntries(daysAgo: 30))
+                        .foregroundColor(AppTheme.textPrimaryDark)
                     Divider()
                         .padding(.vertical, 8)
                     ReflectionSection(title: "1 Year Ago", entries: filterEntries(daysAgo: 365))
+                        .foregroundColor(AppTheme.textPrimaryDark)
                 }
                 .padding(16)
                 .background(AppTheme.cardBackground) // Use a soft warm white for card background
@@ -68,47 +71,68 @@ struct ReflectionSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            // Section Title (Always Left-Aligned)
+            Text(title)
+                .font(.custom("HelveticaNeue-Bold", size: 18))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             if entries.isEmpty {
-                Text(title)
-                    .font(.headline)
+                // Consistently Left-Aligned Empty Message
                 Text("No entry found for this day")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .font(.custom("HelveticaNeue", size: 16))
+                    .foregroundColor(AppTheme.textSecondary)
                     .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             } else {
+                // Entry List with Consistent Alignment
                 ForEach(entries) { entry in
                     VStack(alignment: .leading, spacing: 8) {
+                        // Date Info
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(title)
-                                .font(.headline)
                             Text(dateFormatter.string(from: entry.date))
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                                .font(.custom("HelveticaNeue", size: 16))
+                                .foregroundColor(AppTheme.textSecondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
+                        // Entry Text
                         Text(entry.text)
-                            .font(.body)
+                            .font(.custom("HelveticaNeue", size: 20))
+                            .foregroundColor(AppTheme.textPrimary)
                             .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        HStack {
-                            Spacer()
-                            
-                            if !entry.tags.isEmpty {
-                                HStack(spacing: 4) {
-                                    ForEach(entry.tags, id: \.self) { tag in
-                                        Text(tag)
-                                            .font(.caption)
-                                            .padding(.horizontal, 8)
-                                            .padding(.vertical, 4)
-                                            .background(Color(.systemGray6))
-                                            .cornerRadius(8)
-                                    }
+                        // Tags
+                        if !entry.tags.isEmpty {
+                            HStack(spacing: 4) {
+                                ForEach(entry.tags, id: \.self) { tag in
+                                    Text(tag)
+                                        .font(.custom("HelveticaNeue", size: 12))
+                                        .foregroundColor(AppTheme.textPrimary)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(8)
                                 }
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading) // Enforces left alignment for the entire section
+    }
+}
+
+
+struct ReflectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        // 1) Create a sample JournalViewModel.
+        let sampleViewModel = JournalViewModel()
+        
+        // 3) Return the view for previews.
+        return ReflectionView(viewModel: sampleViewModel)
     }
 }

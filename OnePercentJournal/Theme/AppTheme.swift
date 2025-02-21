@@ -6,6 +6,7 @@ struct AppTheme {
     static let backgroundBlue = Color(red: 245/255, green: 247/255, blue: 250/255) // Very light blue-tinted background
     static let cardBackground = Color.white // Card background color
     static let textPrimary = Color(red: 71/255, green: 85/255, blue: 105/255) // Soft dark blue-gray
+    static let textPrimaryDark = Color(red: 50/255, green: 60/255, blue: 75/255)
     static let textSecondary = Color(red: 148/255, green: 163/255, blue: 184/255) // Lighter text color
 
     // Font styles with Helvetica Neue
